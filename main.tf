@@ -84,3 +84,36 @@ resource "aws_nat_gateway" "nat_eip" {
                Name = "${var.vpc_name}_Pub"
           })
 }
+
+#Security WORLD
+
+resource "aws_security_group" "inbound_noprod" {
+     name = var.security_group_name
+     description = var.security_group_description
+     vpc_id = var.VPC_ID
+
+     ingress {
+          for_each = var.ingress_nonprod
+          from_port = each.value.from_port
+          to_port = each.value.to_port
+          protocol = each.value.protocol
+          cidr_blocks = each.value.cidr_blocks
+          description = each.value.description
+          
+
+     }
+
+      egress {
+          for_each = var.ingress_nonprod
+          from_port = each.value.from_port
+          to_port = each.value.to_port
+          protocol = each.value.protocol
+          cidr_blocks = each.value.cidr_blocks
+          description = each.value.description
+          
+
+     }
+
+     tags = var.security_group_tags
+
+}
