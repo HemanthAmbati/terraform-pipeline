@@ -73,3 +73,37 @@ variable "nat_tags" {
     default = {}
   
 }
+
+variable "security_group_name" {
+    type = string
+    
+  
+}
+
+variable "security_group_description" {
+    type = string
+    default = "Security Group"
+    
+  
+}
+variable "VPC_ID" {
+    type = string
+       
+  
+}
+
+variable "ingress_nonprod" {
+    type = map
+       
+  
+}
+variable "egress_nonprod" {
+    type = map
+       
+  
+}
+variable "security_group_tags" {
+    type = map
+       
+  
+}

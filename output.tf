@@ -21,3 +21,7 @@ output "public_subnets" {
 output "private_subnets" {
     value = aws_subnet.private[*].id
 }
+
+# output "security_group_ID" {
+#     value = aws_security_group.inbound_noprod.id
+# }
