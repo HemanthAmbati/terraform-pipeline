@@ -90,7 +90,7 @@ resource "aws_nat_gateway" "nat_eip" {
 resource "aws_security_group" "inbound_noprod" {
      name = var.security_group_name
      description = var.security_group_description
-     vpc_id = var.VPC_ID
+     vpc_id = aws_vpc.nonprod.id
 
      ingress {
           for_each = var.ingress_nonprod
