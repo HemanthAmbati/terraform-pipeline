@@ -26,7 +26,7 @@ variable "subnet_cidr_pub" {
        condition = (
         length(var.subnet_cidr_pub) == 2
        )
-       error_message = "Public Subnet CIDR block Range doesnot meets te requirment"
+       error_message = "Public Subnet CIDR block Range doesnot meets the requirment"
 
      }
    
@@ -84,11 +84,6 @@ variable "security_group_description" {
     type = string
     default = "Security Group"
     
-  
-}
-variable "VPC_ID" {
-    type = string
-       
   
 }
 
