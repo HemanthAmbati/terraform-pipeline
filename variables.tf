@@ -62,17 +62,17 @@ variable "subnet_cidr_priv" {
    
 }
 
-variable "eip_tags" {
-    type = map
-    default = {}
+# variable "eip_tags" {
+#     type = map
+#     default = {}
   
-}
+# }
 
-variable "nat_tags" {
-    type = map
-    default = {}
+# variable "nat_tags" {
+#     type = map
+#     default = {}
   
-}
+# }
 
 variable "security_group_name" {
     type = string
@@ -100,5 +100,23 @@ variable "egress_nonprod" {
 variable "security_group_tags" {
     type = map
        
+  
+}
+
+variable "public_key_path" {
+    type = string
+       
+  
+}
+
+variable "inbound_ami" {
+    type = string
+       
+  
+}
+
+variable "ec2_type" {
+    type = string
+      
   
 }

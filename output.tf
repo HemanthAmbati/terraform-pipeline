@@ -25,3 +25,8 @@ output "private_subnets" {
 output "rds_security_id" {
     value = aws_security_group.inbound_noprod.id
 }
+
+output "Ec2_instance_id" {
+    value = aws_instance.inbound.id
+}
+

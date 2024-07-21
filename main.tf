@@ -70,20 +70,20 @@ resource "aws_route_table_association" "rt_ppriv_sub" {
      route_table_id = aws_route_table.rt_priv_ig.id
 }
 
-resource "aws_eip" "nat" {
-     domain = "vpc"
-     tags = merge(var.eip_tags,{
-               Name = "${var.vpc_name}_Pub"
-          })
-}
+# resource "aws_eip" "nat" {
+#      domain = "vpc"
+#      tags = merge(var.eip_tags,{
+#                Name = "${var.vpc_name}_Pub"
+#           })
+# }
 
-resource "aws_nat_gateway" "nat_eip" {
-     allocation_id = "${aws_eip.nat.id}"
-     subnet_id = "${aws_subnet.public[0].id}"
-     tags = merge(var.nat_tags,{
-               Name = "${var.vpc_name}_Pub"
-          })
-}
+# resource "aws_nat_gateway" "nat_eip" {
+#      allocation_id = "${aws_eip.nat.id}"
+#      subnet_id = "${aws_subnet.public[0].id}"
+#      tags = merge(var.nat_tags,{
+#                Name = "${var.vpc_name}_Pub"
+#           })
+# }
 
 #Security WORLD
 
@@ -120,3 +120,24 @@ resource "aws_security_group" "inbound_noprod" {
      tags = var.security_group_tags
 
 }
+resource "aws_key_pair" "provision" {
+     key_name = "terraform_pub"
+     public_key = file("H:\\terraform_pub.pub")
+}
+
+resource "aws_instance" "inbound" {
+     ami = var.inbound_ami
+     instance_type = var.ec2_type
+     key_name = aws_key_pair.provision.key_name
+     user_data = "${file("scripts/docker.sh")}"
+     security_groups = [aws_security_group.inbound_noprod.id]
+     tags = merge(var.security_group_tags, {
+          Name = "Docker-test"
+          })
+     provisioner "local-exec" {
+          command = "echo the server IP ADDRESS is ${self.public_ip} > public_ip.txt"
+       
+     }
+
+
+} 
